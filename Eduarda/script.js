@@ -26,6 +26,15 @@ const produtos = [
     preco: 159.9,
     imagem: "https://via.placeholder.com/500x500/121212/ffffff?text=Mochila+Urbana",
     detalhes: ["Compartimento para notebook", "Material resistente à água", "Design ergonômico"]
+  },
+  // 🆕 PRODUTO DE TESTE ADICIONADO
+  {
+    id: "4",
+    nome: "Garrafa Térmica Verde",
+    descricao: "Mantém sua bebida quente ou fria por até 12 horas. Ideal para viagens, estudos ou trabalho.",
+    preco: 119.9,
+    imagem: "https://via.placeholder.com/500x500/2ecc71/ffffff?text=Garrafa+T%C3%A9rmica+Verde",
+    detalhes: ["Capacidade: 750ml", "Aço inoxidável", "Tampa com vedação dupla", "Sem BPA"]
   }
 ];
 
