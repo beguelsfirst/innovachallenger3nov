@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes do Produto | Minha Loja</title>
+  <link rel="stylesheet" href="/global.css">
+  <link rel="stylesheet" href="/Eduarda/styles.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">Minha Loja</div>
+    <nav>
+      <ul>
+        <li><a href="/Miguel/index.html">Início</a></li>
+        <li><a href="#">Carrinho</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container-produto fade-in">
+    <div class="produto-imagem">
+      <img id="produto-imagem" src="" alt="Imagem do Produto" class="zoom-on-hover">
+    </div>
+
+    <div class="produto-info">
+      <h1 id="produto-nome"></h1>
+      <p id="produto-descricao"></p>
+
+      <div class="produto-preco" id="produto-preco"></div>
+
+      <div class="produto-acoes">
+        <label for="quantidade" class="label-qtd">Qtd:</label>
+        <input type="number" id="quantidade" min="1" value="1">
+        <button id="btn-adicionar" class="btn btn-comprar">Adicionar ao Carrinho</button>
+      </div>
+
+      <div class="produto-detalhes">
+        <h3>Detalhes Técnicos</h3>
+        <ul id="produto-detalhes"></ul>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 Minha Loja | Feito com ❤️ no Brasil
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
