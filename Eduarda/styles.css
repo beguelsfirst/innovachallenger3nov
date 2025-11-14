@@ -218,6 +218,31 @@ nav a:hover {
   bottom: 25px;
 }
 
+/* Miniaturas estilo Amazon */
+.miniaturas-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  justify-content: center;
+}
+
+.miniatura {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: 0.25s;
+  opacity: 0.75;
+}
+
+.miniatura:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  border-color: #00ffaa;
+}
+
 /* ---------- RESPONSIVIDADE ---------- */
 @media (max-width: 900px) {
   .produto-conteudo {

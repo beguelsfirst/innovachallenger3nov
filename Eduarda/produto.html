@@ -1,61 +1,86 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detalhes do Produto | Administrator Shop</title>
-  <link rel="stylesheet" href="../global.css">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visualização de Produto</title>
+
+    <!-- Importa arquivos reais -->
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="/Eduarda/styles.css">
 </head>
+
 <body>
 
-  <header class="header">
-    <div class="brand">
-      <a href="/Miguel/index.html" class="logo">ADM</a>
-      <div>
-        <h1 class="logo-text">administrator shop</h1>
-        <p class="logo-sub">Compre rápido — entregue em todo o país</p>
-      </div>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="/Miguel/index.html">Início</a></li>
-        <li><a href="#">Carrinho</a></li>
-        <li><a href="#">Contato</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main class="container-produto fade-in">
-    <div class="produto-conteudo">
-      <div class="produto-imagem">
-        <img id="produto-imagem" src="" alt="Imagem do Produto" class="zoom-on-hover">
-      </div>
-
-      <div class="produto-info">
-        <h1 id="produto-nome" class="produto-nome"></h1>
-        <div id="produto-preco" class="produto-preco"></div>
-
-        <p id="produto-descricao" class="produto-descricao"></p>
-
-        <div class="produto-acoes">
-          <label for="quantidade" class="label-qtd">Qtd:</label>
-          <input type="number" id="quantidade" min="1" value="1">
-          <button id="btn-adicionar" class="btn btn-comprar">Adicionar ao Carrinho</button>
+    <!-- ========================= HEADER ========================= -->
+    <header class="header">
+        <div class="brand">
+            <div class="logo">A</div>
+            <div>
+                <p class="logo-text">Administrator Shop</p>
+                <p class="logo-sub">Tecnologia & Inovação</p>
+            </div>
         </div>
 
-        <div class="produto-detalhes">
-          <h3>Detalhes Técnicos</h3>
-          <ul id="produto-detalhes"></ul>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Início</a></li>
+                <li><a href="#">Produtos</a></li>
+                <li><a href="#">Carrinho</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <!-- ========================= CONTEÚDO ========================= -->
+    <main class="container-produto">
+        <div class="produto-conteudo">
+
+            <!-- ----------- IMAGEM PRINCIPAL + MINIATURAS ----------- -->
+            <div class="produto-imagem">
+                <!-- JS irá trocar automaticamente esta imagem -->
+                <img id="imagem-principal" src="" alt="Imagem do Produto">
+            </div>
+
+
+            <!-- ----------- INFORMAÇÕES DO PRODUTO ----------- -->
+            <div class="produto-info">
+                
+                <h1 class="produto-nome"></h1>
+
+                <p class="produto-preco"></p>
+
+                <p class="produto-descricao"></p>
+
+                <!-- ----------- AÇÕES (qtd + comprar) ----------- -->
+                <div class="produto-acoes">
+                    <label class="label-qtd" for="qtd">Qtd:</label>
+                    <input type="number" id="qtd" min="1" value="1">
+
+                    <button class="btn-comprar" onclick="adicionarCarrinho()">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+
+                <!-- ----------- LISTA DE DETALHES (dinâmico) ----------- -->
+                <div class="produto-detalhes">
+                    <h3>Detalhes do Produto</h3>
+                    <ul></ul>
+                </div>
+
+            </div>
         </div>
-      </div>
-    </div>
-  </main>
+    </main>
 
-  <footer>
-    © 2025 Administrator Shop — Feito com ❤️ no Brasil
-  </footer>
 
-  <script src="script.js"></script>
+    <!-- ========================= AVISO (POP-UP) ========================= -->
+    <div class="aviso" id="aviso">Produto adicionado ao carrinho!</div>
+
+    <!-- Importa o banco de produtos -->
+    <script src="../produtosDB.js"></script>
+
+    <!-- Importa o script de funcionalidade -->
+    <script src="/Eduarda/scripts.js"></script>
 </body>
 </html>
