@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Loja Online — Home</title>
+  <style>
+    :root{
+      --bg:#0f1724; /* dark navy */
+      --card:#0b1220;
+      --muted:#94a3b8;
+      --accent:#06b6d4; /* teal */
+      --glass: rgba(255,255,255,0.04);
+      --radius:14px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#071026);color:#e6eef6;min-height:100vh}
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);backdrop-filter: blur(6px)}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700}
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;font-size:14px}
+    .search{display:flex;align-items:center;background:var(--glass);padding:8px;border-radius:12px}
+    .search input{background:transparent;border:0;outline:0;color:inherit;width:180px}
+    main{padding:28px}
+    .hero{display:flex;flex-direction:column;gap:18px;padding:28px;background:linear-gradient(90deg, rgba(6,182,212,0.08), rgba(124,58,237,0.04));border-radius:16px;margin-bottom:20px}
+    .hero-row{display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .hero h1{margin:0;font-size:28px}
+    .cta{background:linear-gradient(90deg,var(--accent),#7c3aed);padding:12px 16px;border-radius:12px;color:#04263a;font-weight:700;border:none;cursor:pointer}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.03)}
+    .thumb{width:100%;height:150px;border-radius:8px;object-fit:cover;background:#081426}
+    .prod-title{font-weight:600;margin:10px 0 6px}
+    .price-row{display:flex;justify-content:space-between;align-items:center}
+    .price{font-weight:700}
+    .add{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:10px;cursor:pointer}
+    .cart-btn{position:relative}
+    .cart-count{position:absolute;top:-8px;right:-8px;background:#ff4d6d;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:12px}
+    /* cart modal */
+    .modal{position:fixed;right:18px;bottom:18px;background:var(--card);padding:12px;border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.6);width:340px;max-height:70vh;overflow:auto;border:1px solid rgba(255,255,255,0.03)}
+    .modal h3{margin:0 0 10px}
+    .cart-item{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.02)}
+    .cart-thumb{width:56px;height:56px;border-radius:8px;object-fit:cover}
+    .qty{display:flex;gap:6px;align-items:center}
+    button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:8px;cursor:pointer}
+    footer{padding:18px 24px;color:var(--muted);font-size:13px;text-align:center}
+    @media (min-width:900px){.hero{flex-direction:row;padding:32px}.hero h1{font-size:34px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo"><A:blank>ADM</A:blank></div>
+      <div>
+        <div style="font-weight:700">administrator shop</div>
+        <div style="font-size:12px;color:var(--muted)">Compre rápido — entregue em todo o país</div>
+      </div>
+    </div>
+    <nav>
+      <div class="search" aria-label="busca">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:.8"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
+        <input id="searchInput" placeholder="Buscar produtos..." />
+      </div>
+      <a href="#">Categorias</a>
+      <a href="#">Ofertas</a>
+      <div class="cart-btn" style="margin-left:6px">
+        <button id="openCart" class="ghost">Carrinho</button>
+        <div id="cartCount" class="cart-count" style="display:none">0</div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <h1>Os melhores produtos. <span style="color:var(--accent)">Preços incríveis</span></h1>
+        <p style="color:var(--muted);margin-top:8px">Navegue por categorias, veja as ofertas do dia e adicione ao carrinho em um clique.</p>
+        <div style="margin-top:14px">
+          <button class="cta" id="shopNow">Comprar agora</button>
+        </div>
+      </div>
+      <div style="width:320px;max-width:45%;">
+      </div>
+    </section>
+
+    <section>
+      <h2 style="margin:8px 0 0">Destaques</h2>
+      <div class="grid" id="productsGrid">
+        <!-- produtos gerados por JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Cart modal (será mostrado/escondido pelo JS) -->
+  <div id="cartModal" class="modal" style="display:none">
+    <h3>Seu Carrinho</h3>
+    <div id="cartItems"></div>
+    <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-weight:700">Total: <span id="cartTotal">R$0,00</span></div>
+      <div>
+        <button id="checkout" class="cta">Finalizar</button>
+        <button id="closeCart" class="ghost">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025  — Feito com perfeição para aprendizado
+  </footer>
+
+  <script>
+    // exemplo de produtos (substitua pelos seus)
+    const products = [
+      {id:1,title:'Fone Gamer HyperX',price:199.9,img:'public/fone1.jpg'},
+      {id:2,title:'Teclado Mecânico RGB',price:329.0,img:'public/teclado2.webp'}, 
+      {id:3,title:'Mouse Gamer com Sensor Óptico 3600',price:89.5,img:'public/mouse1.jpg'},
+      {id:4,title:'Monitor 24" 244Hz',price:1299.99,img:'public/monitor1.webp'},
+      {id:5,title:'Webcam 1080p',price:179.9,img:'public/webcam2.jpg'},
+      {id:6,title:'Cadeira Gamer',price:899.0,img:'public/cadeira1.webp'},
+    ];
+
+    // utilidades de formatação
+    const priceBR = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+
+    // cart -> armazenado no localStorage
+    let cart = JSON.parse(localStorage.getItem('loja_cart')||'{}');
+
+    // render produtos
+    const grid = document.getElementById('productsGrid');
+    function renderProducts(list){
+      grid.innerHTML = '';
+      list.forEach(p=>{
+        const card = document.createElement('div'); card.className='card';
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.title}" class="thumb" />
+          <div class="prod-title">${p.title}</div>
+          <div class="price-row"><div class="price">${priceBR(p.price)}</div><button class="add" data-id="${p.id}">Adicionar</button></div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    renderProducts(products);
+
+    // atualizar contagem do carrinho
+    function updateCartCount(){
+      const count = Object.values(cart).reduce((s,i)=>s+i.qty,0);
+      const el = document.getElementById('cartCount');
+      if(count>0){el.style.display='flex';el.textContent=count;} else {el.style.display='none'}
+    }
+
+    function saveCart(){
+      localStorage.setItem('loja_cart', JSON.stringify(cart));
+      updateCartCount();
+    }
+
+    // adicionar handlers (delegation)
+    document.body.addEventListener('click', e=>{
+      const add = e.target.closest('[data-id]');
+      if(add){
+        const id = add.getAttribute('data-id'); const prod = products.find(x=>x.id==id);
+        if(!cart[id]) cart[id] = { ...prod, qty:0 };
+        cart[id].qty +=1;
+        saveCart();
+        // pequeno feedback
+        add.textContent = 'Adicionado ✓';
+        setTimeout(()=> add.textContent='Adicionar',800);
+      }
+    });
+
+    // pesquisa simples
+    const search = document.getElementById('searchInput');
+    search.addEventListener('input',()=>{
+      const q = search.value.trim().toLowerCase();
+      const filtered = products.filter(p=>p.title.toLowerCase().includes(q));
+      renderProducts(filtered);
+    });
+
+    // carrinho modal
+    const cartModal = document.getElementById('cartModal');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+
+    function renderCart(){
+      cartItems.innerHTML='';
+      const keys = Object.keys(cart);
+      if(keys.length===0){cartItems.innerHTML='<div style="color:var(--muted)">Seu carrinho está vazio.</div>';cartTotal.textContent='R$0,00';return}
+      let total = 0;
+      keys.forEach(k=>{
+        const it = cart[k];
+        total += it.price*it.qty;
+        const div = document.createElement('div'); div.className='cart-item';
+        div.innerHTML = `
+          <img src="${it.img}" class="cart-thumb" />
+          <div style="flex:1">
+            <div style="font-weight:700">${it.title}</div>
+            <div style="color:var(--muted);font-size:13px">${priceBR(it.price)} x ${it.qty}</div>
+          </div>
+          <div class="qty">
+            <button class="ghost" data-act="dec" data-id="${k}">-</button>
+            <div style="min-width:18px;text-align:center">${it.qty}</div>
+            <button class="ghost" data-act="inc" data-id="${k}">+</button>
+            <button class="ghost" data-act="remove" data-id="${k}" style="margin-left:6px">Remover</button>
+          </div>
+        `;
+        cartItems.appendChild(div);
+      });
+      cartTotal.textContent = priceBR(total);
+    }
+
+    // buttons open/close
+    document.getElementById('openCart').addEventListener('click',()=>{ renderCart(); cartModal.style.display='block'});
+    document.getElementById('closeCart').addEventListener('click',()=>cartModal.style.display='none');
+    document.getElementById('checkout').addEventListener('click',()=>{
+      alert('Checkout simulado — Implemente integração com gateway de pagamento.');
+    });
+
+    // actions dentro do cart
+    cartItems.addEventListener('click', e=>{
+      const btn = e.target.closest('[data-act]');
+      if(!btn) return;
+      const id = btn.getAttribute('data-id'); const act = btn.getAttribute('data-act');
+      if(act==='inc') cart[id].qty +=1;
+      if(act==='dec') { cart[id].qty -=1; if(cart[id].qty<=0) delete cart[id]; }
+      if(act==='remove') delete cart[id];
+      saveCart(); renderCart();
+    });
+
+    // iniciar
+    updateCartCount();
+
+    // CTA shopNow leva para a grade
+    document.getElementById('shopNow').addEventListener('click',()=>{
+      window.scrollTo({top: document.getElementById('productsGrid').offsetTop - 20, behavior:'smooth'});
+    });
+
+  </script>
+</body>
+</html>
