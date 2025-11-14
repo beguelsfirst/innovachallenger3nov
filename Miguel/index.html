@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loja Online Completa</title>
+
+<style>
+    body{
+        margin:0;
+        font-family:Arial, sans-serif;
+        background:#0c1220;
+        color:white;
+    }
+    header{
+        padding:20px;
+        background:#111a2e;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+    }
+    .container{
+        padding:20px;
+    }
+    .grid{
+        display:grid;
+        grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+        gap:20px;
+    }
+    .card{
+        background:#141f33;
+        padding:15px;
+        border-radius:10px;
+    }
+    .card img{
+        width:100%;
+        height:150px;
+        object-fit:cover;
+        border-radius:8px;
+        background:#1a2944;
+    }
+    .btn{
+        padding:10px;
+        border:none;
+        background:#06b6d4;
+        color:#02222e;
+        font-weight:bold;
+        border-radius:8px;
+        cursor:pointer;
+        width:100%;
+        margin-top:10px;
+    }
+    /* Modal */
+    .modal{
+        position:fixed;
+        top:0; left:0;
+        width:100%; height:100%;
+        background:rgba(0,0,0,0.6);
+        display:none;
+        justify-content:center;
+        align-items:center;
+    }
+    .modal-content{
+        background:#111a2e;
+        padding:20px;
+        border-radius:10px;
+        width:90%;
+        max-width:450px;
+        max-height:90vh;
+        overflow:auto;
+    }
+    input, select{
+        width:100%;
+        padding:10px;
+        margin:5px 0;
+        border-radius:8px;
+        border:none;
+        background:#1a2944;
+        color:white;
+    }
+    .cart-item{
+        display:flex;
+        justify-content:space-between;
+        margin:10px 0;
+        border-bottom:1px solid #263657;
+        padding-bottom:10px;
+    }
+    .qty-btn{
+        padding:5px 10px;
+        background:#263657;
+        border:none;
+        color:white;
+        cursor:pointer;
+        border-radius:5px;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h2>Minha Loja</h2>
+    <button id="btnCart" class="btn" style="width:auto;padding:8px 15px;">Carrinho</button>
+</header>
+
+<div class="container">
+    <h1>Produtos</h1>
+    <div class="grid" id="gridProducts"></div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="cartModal">
+    <div class="modal-content">
+
+        <!-- VIEW CARRINHO -->
+        <div id="cartView">
+            <h2>Carrinho</h2>
+            <div id="cartItems"></div>
+
+            <h3>Total: <span id="cartTotal">R$ 0,00</span></h3>
+
+            <button class="btn" id="checkoutBtn">Finalizar Compra</button>
+            <button class="btn" id="clearCart" style="background:#ff4d6d;color:white;">Limpar Carrinho</button>
+            <button class="btn" id="closeCart" style="background:#263657;color:white;">Fechar</button>
+        </div>
+
+        <!-- CHECKOUT -->
+        <div id="checkoutView" style="display:none;">
+            <h2>Finalizar Compra</h2>
+
+            <input id="nome" placeholder="Nome completo">
+            <input id="cpf" placeholder="CPF">
+            <input id="endereco" placeholder="Endereço">
+            <input id="cep" placeholder="CEP">
+
+            <select id="pagamento">
+                <option value="credito">Cartão de Crédito</option>
+                <option value="pix">Pix (5% OFF)</option>
+                <option value="boleto">Boleto</option>
+            </select>
+
+            <button id="confirmar" class="btn">Confirmar</button>
+            <button id="voltar" class="btn" style="background:#263657;color:white;">Voltar</button>
+        </div>
+
+        <!-- SUCESSO -->
+        <div id="successView" style="display:none;text-align:center;">
+            <h2>Pedido Finalizado ✔</h2>
+            <p>Obrigado pela compra!</p>
+            <button class="btn" onclick="location.reload()">Voltar</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+/* ---------------- PRODUTOS ---------------- */
+const products = [
+    {id:1, nome:'Fone Gamer', preco:199.90, img:'public/fone1.jpg'},
+    {id:2, nome:'Teclado RGB', preco:329.00, img:'public/teclado2.webp'},
+    {id:3, nome:'Mouse Gamer', preco:89.50, img:'public/mouse1.jpg'},
+    {id:4, nome:'Monitor 24" 144hz', preco:1299.99, img:'public/monitor1.webp'}
+];
+
+/* DOM */
+const grid = document.getElementById("gridProducts");
+const cartModal = document.getElementById("cartModal");
+const cartItems = document.getElementById("cartItems");
+const cartTotal = document.getElementById("cartTotal");
+const checkoutView = document.getElementById("checkoutView");
+const cartView = document.getElementById("cartView");
+const successView = document.getElementById("successView");
+
+/* Carrinho */
+let cart = JSON.parse(localStorage.getItem("CART") || "{}");
+
+function saveCart(){
+    localStorage.setItem("CART", JSON.stringify(cart));
+}
+
+function priceBR(v){
+    return v.toLocaleString("pt-BR", {style:"currency", currency:"BRL"});
+}
+
+/* Render Produtos */
+function renderProducts(){
+    grid.innerHTML = "";
+    products.forEach(p=>{
+        const card = document.createElement("div");
+        card.className="card";
+        card.innerHTML = `
+            <img src="${p.img}">
+            <h3>${p.nome}</h3>
+            <p>${priceBR(p.preco)}</p>
+            <button class="btn" onclick="addCart(${p.id})">Adicionar</button>
+        `;
+        grid.appendChild(card);
+    });
+}
+renderProducts();
+
+/* Add Carrinho */
+function addCart(id){
+    if(!cart[id]) cart[id]={...products.find(x=>x.id==id), qty:0};
+    cart[id].qty++;
+    saveCart();
+}
+
+/* Render Carrinho */
+function renderCart(){
+    cartItems.innerHTML = "";
+    let total = 0;
+    const ids = Object.keys(cart);
+
+    if(ids.length === 0){
+        cartItems.innerHTML = "<p>Seu carrinho está vazio.</p>";
+        cartTotal.textContent = "R$ 0,00";
+        return;
+    }
+
+    ids.forEach(id=>{
+        const item = cart[id];
+        total += item.preco * item.qty;
+
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+            <div>
+                <strong>${item.nome}</strong><br>
+                ${priceBR(item.preco)} × ${item.qty}
+            </div>
+            <div>
+                <button class="qty-btn" onclick="mudarQtd(${id}, -1)">-</button>
+                <button class="qty-btn" onclick="mudarQtd(${id}, 1)">+</button>
+                <button class="qty-btn" onclick="remover(${id})" style="background:#ff4d6d;">X</button>
+            </div>
+        `;
+        cartItems.appendChild(div);
+    });
+
+    cartTotal.textContent = priceBR(total);
+}
+
+function mudarQtd(id, n){
+    cart[id].qty += n;
+    if(cart[id].qty <= 0){
+        delete cart[id];
+    }
+    saveCart();
+    renderCart();
+}
+
+function remover(id){
+    delete cart[id];
+    saveCart();
+    renderCart();
+}
+
+document.getElementById("clearCart").onclick = ()=>{
+    cart = {};
+    saveCart();
+    renderCart();
+};
+
+/* Abrir Carrinho */
+document.getElementById("btnCart").onclick = ()=>{
+    cartModal.style.display="flex";
+    renderCart();
+};
+
+document.getElementById("closeCart").onclick = ()=>{
+    cartModal.style.display="none";
+};
+
+/* Ir para checkout */
+document.getElementById("checkoutBtn").onclick = ()=>{
+    if(Object.keys(cart).length === 0) return alert("Carrinho vazio!");
+    cartView.style.display="none";
+    checkoutView.style.display="block";
+};
+
+/* Voltar ao carrinho */
+document.getElementById("voltar").onclick = ()=>{
+    checkoutView.style.display="none";
+    cartView.style.display="block";
+};
+
+/* Finalizar pedido */
+document.getElementById("confirmar").onclick = ()=>{
+    cart = {};
+    saveCart();
+    checkoutView.style.display="none";
+    successView.style.display="block";
+};
+</script>
+
+</body>
+</html>
