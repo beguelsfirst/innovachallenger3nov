@@ -37,14 +37,26 @@
     <main class="container-produto">
         <div class="produto-conteudo">
 
-            <!-- ----------- IMAGEM PRINCIPAL + MINIATURAS ----------- -->
+            <!-- ===================== CARROSSEL DE IMAGENS ===================== -->
             <div class="produto-imagem">
-                <!-- JS irá trocar automaticamente esta imagem -->
-                <img id="imagem-principal" src="" alt="Imagem do Produto">
+
+                <div class="carousel">
+                    <button class="carousel-btn left" id="btn-prev">❮</button>
+
+                    <div class="carousel-track" id="carousel-track">
+                        <!-- Imagens serão carregadas via JS -->
+                    </div>
+
+                    <button class="carousel-btn right" id="btn-next">❯</button>
+                </div>
+
+                <!-- Miniaturas -->
+                <div id="miniaturas" class="miniaturas-container"></div>
+
             </div>
 
 
-            <!-- ----------- INFORMAÇÕES DO PRODUTO ----------- -->
+            <!-- ===================== INFORMAÇÕES DO PRODUTO ===================== -->
             <div class="produto-info">
                 
                 <h1 class="produto-nome"></h1>
@@ -63,7 +75,7 @@
                     </button>
                 </div>
 
-                <!-- ----------- LISTA DE DETALHES (dinâmico) ----------- -->
+                <!-- ----------- LISTA DE DETALHES ----------- -->
                 <div class="produto-detalhes">
                     <h3>Detalhes do Produto</h3>
                     <ul></ul>
@@ -81,6 +93,6 @@
     <script src="../produtosDB.js"></script>
 
     <!-- Importa o script de funcionalidade -->
-    <script src="/Eduarda/scripts.js"></script>
+    <script src="/Eduarda/script.js"></script>
 </body>
 </html>

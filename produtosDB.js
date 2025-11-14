@@ -9,7 +9,7 @@ const produtosDB = {
             tela FHD de 15.6'', 16GB de RAM e SSD de 512GB.
         `,
         imagens: [
-            "https://via.placeholder.com/800x600.png?text=Notebook+1",
+            "https://m.media-amazon.com/images/I/71XsKNBgSeL._AC_SX679_.jpg",
             "https://via.placeholder.com/800x600.png?text=Notebook+2",
             "https://via.placeholder.com/800x600.png?text=Notebook+3"
         ],
