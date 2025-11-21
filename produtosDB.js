@@ -15,9 +15,10 @@ const produtosDB = {
             Ideal para FPS, lives e uso diário.
         `,
         imagens: [
-            "public/fone1.jpg",
-            "https://via.placeholder.com/800x600.png?text=Fone+HyperX+2",
-            "https://via.placeholder.com/800x600.png?text=Fone+HyperX+3"
+            "Eduarda/public/fone1.jpg",
+            "public/fone4.jpg",
+            "public/fone3.png",
+            "public/fone2.jpg"
         ],
         detalhes: [
             "Drivers de 50mm",
@@ -40,8 +41,9 @@ const produtosDB = {
             Ideal para jogos e produtividade.
         `,
         imagens: [
-            "public/teclado2.webp",
-            "https://via.placeholder.com/800x600.png?text=Teclado+RGB+2"
+            "Eduarda/public/teclado2.webp",
+            "public/teclado1.jpg",
+            "public/teclado3.avif"
         ],
         detalhes: [
             "Switches mecânicos Blue",
@@ -63,8 +65,8 @@ const produtosDB = {
             Mouse gamer ergonômico com sensor de 3600 DPI e iluminação LED RGB.
         `,
         imagens: [
-            "public/mouse1.jpg",
-            "https://via.placeholder.com/800x600.png?text=Mouse+Gamer+2"
+            "Eduarda/public/mouse1.jpg",
+            "public/mouse2.png" 
         ],
         detalhes: [
             "Sensor óptico 3600 DPI",
@@ -87,8 +89,9 @@ const produtosDB = {
             Ideal para eSports.
         `,
         imagens: [
-            "public/monitor1.webp",
-            "https://via.placeholder.com/800x600.png?text=Monitor+2"
+            "Eduarda/public/monitor1.webp",
+            "public/monitor2.avif",
+            "public/monitor3.webp"
         ],
         detalhes: [
             "244Hz • 1ms",
@@ -111,8 +114,8 @@ const produtosDB = {
             Excelente para reuniões e aulas.
         `,
         imagens: [
-            "public/webcam2.jpg",
-            "https://via.placeholder.com/800x600.png?text=Webcam+2"
+            "Eduarda/public/webcam2.jpg",
+            "public/webcam1.webp"
         ],
         detalhes: [
             "Resolução 1080p",
@@ -135,8 +138,9 @@ const produtosDB = {
             Confortável para longas horas de jogo ou estudo.
         `,
         imagens: [
-            "public/cadeira1.webp",
-            "https://via.placeholder.com/800x600.png?text=Cadeira+Gamer+2"
+            "Eduarda/public/cadeira1.webp",
+            "public/cadeira2.webp",
+            "public/cadeira3.jpg"
         ],
         detalhes: [
             "Reclinação até 150°",

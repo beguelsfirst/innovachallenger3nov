@@ -3,500 +3,70 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Loja Online — Home</title>
-  <style>
-    :root{
-      --bg:#0f1724; /* dark navy */
-      --card:#0b1220;
-      --muted:#94a3b8;
-      --accent:#06b6d4; /* teal */
-      --glass: rgba(255,255,255,0.04);
-      --radius:14px;
-      --success:#16a34a; /* green */
-      --cta:#f59e0b; /* yellow/orange CTA */
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,var(--bg),#071026);color:#e6eef6;min-height:100vh}
-    header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);backdrop-filter: blur(6px)}
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700}
-    nav{display:flex;gap:12px;align-items:center}
-    nav a{color:var(--muted);text-decoration:none;font-size:14px}
-    .search{display:flex;align-items:center;background:var(--glass);padding:8px;border-radius:12px}
-    .search input{background:transparent;border:0;outline:0;color:inherit;width:180px}
-    main{padding:28px}
-    .hero{display:flex;flex-direction:column;gap:18px;padding:28px;background:linear-gradient(90deg, rgba(6,182,212,0.08), rgba(124,58,237,0.04));border-radius:16px;margin-bottom:20px}
-    .hero-row{display:flex;align-items:center;justify-content:space-between;gap:18px}
-    .hero h1{margin:0;font-size:28px}
-    .cta{background:linear-gradient(90deg,var(--accent),#7c3aed);padding:12px 16px;border-radius:12px;color:#04263a;font-weight:700;border:none;cursor:pointer}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.03)}
-    .thumb{width:100%;height:150px;border-radius:8px;object-fit:cover;background:#081426}
-    .prod-title{font-weight:600;margin:10px 0 6px}
-    .price-row{display:flex;justify-content:space-between;align-items:center}
-    .price{font-weight:700}
-    .add{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:10px;cursor:pointer}
-    .cart-btn{position:relative}
-    .cart-count{position:absolute;top:-8px;right:-8px;background:#ff4d6d;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:12px}
-    /* cart modal - updated to two-column, conversion widget on right */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;padding:20px;z-index:1000}
-    .cart-panel{width:100%;max-width:1000px;background:var(--card);border-radius:12px;display:flex;gap:18px;overflow:hidden;box-shadow:0 20px 50px rgba(2,6,23,0.7);border:1px solid rgba(255,255,255,0.03)}
-    /* left column: items */
-    .cart-items-col{flex:1;padding:18px 16px;min-width:0}
-    .cart-items-col h3{margin:0 0 8px}
-    .cart-list{display:flex;flex-direction:column;gap:12px;max-height:60vh;overflow:auto;padding-right:6px}
-    .cart-row{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02)}
-    .cart-row img{width:84px;height:84px;border-radius:8px;object-fit:cover;background:#081426}
-    .cart-meta{flex:1;min-width:0}
-    .cart-meta .title{font-weight:700}
-    .cart-meta .meta{color:var(--muted);font-size:13px;margin-top:6px}
-    .cart-actions{display:flex;align-items:center;gap:8px;margin-top:8px}
-    .qty-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:6px 8px;border-radius:8px;cursor:pointer;color:inherit}
-    .remove-btn{background:transparent;border:none;color:#ff7b8a;cursor:pointer;font-weight:700;margin-left:6px}
-    .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.02),transparent);margin:12px 0}
-    /* right column: conversion widget */
-    .summary-col{width:340px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:18px;border-left:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:12px}
-    .badge-free{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(22,163,74,0.12);color:var(--success);font-weight:700;font-size:13px;border:1px solid rgba(22,163,74,0.12)}
-    .summary-row{display:flex;justify-content:space-between;align-items:center}
-    .subtotal{font-size:18px;font-weight:800}
-    .shipping-info{color:var(--muted);font-size:14px}
-    .cta-checkout{margin-top:auto;background:linear-gradient(90deg,var(--cta),#f59e0b);color:#04263a;border:none;padding:12px;border-radius:10px;font-weight:900;cursor:pointer;font-size:16px}
-    .secondary-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:8px;cursor:pointer;color:inherit}
-    .small-muted{color:var(--muted);font-size:13px}
-    .success-view{padding:20px;text-align:center}
-    .success-view h3{color:var(--success);margin:0 0 8px}
-    /* checkout form (will slide in within right column) */
-    .checkout-form{display:flex;flex-direction:column;gap:8px}
-    .input{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:8px;color:inherit}
-    @media (max-width:900px){
-      .cart-panel{flex-direction:column;width:100%;max-width:720px}
-      .summary-col{width:100%;border-left:none;border-top:1px solid rgba(255,255,255,0.02)}
-    }
-  </style>
+  <title>Carrinho — Loja Online</title>
+
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <div class="logo"><A:blank>ADM</A:blank></div>
-      <div>
-        <div style="font-weight:700">administrator shop</div>
-        <div style="font-size:12px;color:var(--muted)">Compre rápido — entregue em todo o país</div>
-      </div>
-    </div>
-    <nav>
-      <div class="search" aria-label="busca">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:.8"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
-        <input id="searchInput" placeholder="Buscar produtos..." />
-      </div>
-      <a href="#">Categorias</a>
-      <a href="#">Ofertas</a>
-      <div class="cart-btn" style="margin-left:6px">
-        <button id="openCart" class="ghost">Carrinho</button>
-        <div id="cartCount" class="cart-count" style="display:none">0</div>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div>
-        <h1>Os melhores produtos. <span style="color:var(--accent)">Preços incríveis</span></h1>
-        <p style="color:var(--muted);margin-top:8px">Navegue por categorias, veja as ofertas do dia e adicione ao carrinho em um clique.</p>
-        <div style="margin-top:14px">
-          <button class="cta" id="shopNow">Comprar agora</button>
-        </div>
-      </div>
-      <div style="width:320px;max-width:45%;"></div>
-    </section>
-
-    <section>
-      <h2 style="margin:8px 0 0">Destaques</h2>
-      <div class="grid" id="productsGrid"></div>
-    </section>
-  </main>
-
-  <!-- NEW cart modal (two-column) -->
-  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
-    <div class="cart-panel" role="dialog" aria-modal="true" aria-label="Carrinho de compras">
-      <!-- LEFT: itens -->
-      <div class="cart-items-col">
-        <h3>Seu Carrinho</h3>
-        <div class="small-muted" id="cartEmptyHint" style="display:none">Revise seus itens antes de finalizar.</div>
-
-        <div class="cart-list" id="cartList">
-          <!-- itens serão renderizados aqui -->
-        </div>
-
-        <div class="divider"></div>
-
-        <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
-          <div class="small-muted">Ações</div>
-          <div style="display:flex;gap:8px">
-            <button class="secondary-btn" id="clearAllBtn">Limpar carrinho</button>
-            <button class="secondary-btn" id="closePanelBtn">Fechar</button>
-          </div>
+  <div class="container">
+    <h1>Carrinho</h1>
+    <div class="panel">
+      <div class="left" id="leftCol">
+        <div id="cartItems"></div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button class="secondary" id="clearBtn">Limpar carrinho</button>
+          <button class="secondary" id="backBtn">Continuar comprando</button>
         </div>
       </div>
 
-      <!-- RIGHT: resumo / conversão -->
-      <div class="summary-col" id="summaryCol">
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <div class="small-muted">Resumo</div>
-              <div style="font-weight:700">Você está quase lá</div>
-            </div>
-            <div class="badge-free">Frete GRÁTIS</div>
+      <div class="right">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div class="muted">Resumo</div>
+            <div style="font-weight:700">Finalize seu pedido</div>
           </div>
-
-          <div style="margin-top:8px">
-            <div class="summary-row"><div class="small-muted">Subtotal</div><div id="subtotalVal" class="subtotal">R$0,00</div></div>
-            <div class="summary-row"><div class="small-muted">Frete</div><div id="shippingVal" class="small-muted">R$0,00</div></div>
-            <div style="height:6px"></div>
-            <div class="summary-row" style="font-size:16px"><div style="font-weight:700">Total</div><div id="totalVal" style="font-weight:900;font-size:18px">R$0,00</div></div>
-          </div>
-
-          <div style="margin-top:12px">
-            <div class="small-muted">Entrega estimada</div>
-            <div style="font-weight:700">3–7 dias úteis</div>
-          </div>
-
+          <div style="color:var(--success);font-weight:700">Frete GRÁTIS</div>
         </div>
-
-        <button class="cta-checkout" id="checkoutBtn">Fechar pedido</button>
 
         <div style="margin-top:12px">
-          <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
-            <div class="small-muted">Tem cupom?</div>
-            <button class="secondary-btn" id="applyCouponBtn">Aplicar</button>
+          <div style="display:flex;justify-content:space-between">
+            <div class="muted">Subtotal</div>
+            <div id="subtotal">R$0,00</div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;margin-top:6px">
+            <div class="muted">Frete</div>
+            <div id="ship">R$0,00</div>
+          </div>
+
+          <hr style="border:none;height:8px;background:transparent">
+
+          <div style="display:flex;justify-content:space-between;font-weight:800;font-size:18px">
+            <div>Total</div>
+            <div id="total">R$0,00</div>
           </div>
         </div>
 
-        <div style="margin-top:12px" class="small-muted">Aceitamos cartões, Pix e boleto.</div>
+        <div style="margin-top:12px">
+          <input id="name" placeholder="Nome completo">
+          <input id="cpf" placeholder="CPF">
+          <input id="cep" placeholder="CEP">
+          <input id="address" placeholder="Endereço (Rua, nº)">
 
-        <!-- checkout form (hidden until checkout) -->
-        <div id="checkoutForm" style="display:none;margin-top:12px">
-          <div style="font-weight:700;margin-bottom:6px">Finalizar compra</div>
-          <div class="checkout-form">
-            <input id="inputName" class="input" placeholder="Nome completo" />
-            <input id="inputCPF" class="input" placeholder="CPF" />
-            <input id="inputCEP" class="input" placeholder="CEP" />
-            <input id="inputAddress" class="input" placeholder="Endereço (Rua, nº, complemento)" />
-            <select id="inputPayment" class="input">
-              <option value="credit">Cartão de crédito</option>
-              <option value="pix">Pix (5% off)</option>
-              <option value="boleto">Boleto</option>
-            </select>
+          <select id="payment" class="payment-select">
+            <option value="credit">Cartão de crédito</option>
+            <option value="pix">Pix (5% off)</option>
+            <option value="boleto">Boleto</option>
+          </select>
 
-            <div style="display:flex;gap:8px">
-              <button id="confirmBtn" class="cta-checkout" style="flex:1">Confirmar pagamento</button>
-              <button id="backToSummary" class="secondary-btn" style="flex:1">Voltar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- success view -->
-        <div id="successView" style="display:none" class="success-view">
-          <h3>Pedido confirmado</h3>
-          <div class="small-muted">Obrigado! Um e-mail com os detalhes foi enviado.</div>
-          <div style="margin-top:12px">
-            <button id="doneBtn" class="cta-checkout" style="width:100%">Voltar à loja</button>
-          </div>
+          <button id="confirm" class="cta-large" style="margin-top:12px">Confirmar pedido</button>
         </div>
       </div>
     </div>
   </div>
 
-  <footer>
-    © 2025  — Feito com perfeição para aprendizado
-  </footer>
-
-  <script>
-    /* ---------- dados de exemplo ---------- */
-    const products = [
-      {id:1,title:'Fone Gamer HyperX',price:199.9,img:'public/fone1.jpg',stock:12},
-      {id:2,title:'Teclado Mecânico RGB',price:329.0,img:'public/teclado2.webp',stock:5},
-      {id:3,title:'Mouse Gamer com Sensor Óptico 3600',price:89.5,img:'public/mouse1.jpg',stock:25},
-      {id:4,title:'Monitor 24\" 244Hz',price:1299.99,img:'public/monitor1.webp',stock:3},
-      {id:5,title:'Webcam 1080p',price:179.9,img:'public/webcam2.jpg',stock:8},
-      {id:6,title:'Cadeira Gamer',price:899.0,img:'public/cadeira1.webp',stock:2},
-    ];
-
-    /* ---------- util ---------- */
-    const priceBR = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-
-    /* ---------- cart storage ---------- */
-    let cart = JSON.parse(localStorage.getItem('loja_cart')||'{}');
-
-    /* ---------- DOM refs ---------- */
-    const productsGrid = document.getElementById('productsGrid');
-    const cartCount = document.getElementById('cartCount');
-    const modalBackdrop = document.getElementById('modalBackdrop');
-    const cartList = document.getElementById('cartList');
-    const subtotalVal = document.getElementById('subtotalVal');
-    const shippingVal = document.getElementById('shippingVal');
-    const totalVal = document.getElementById('totalVal');
-    const checkoutBtn = document.getElementById('checkoutBtn');
-    const checkoutForm = document.getElementById('checkoutForm');
-    const successView = document.getElementById('successView');
-    const clearAllBtn = document.getElementById('clearAllBtn');
-    const closePanelBtn = document.getElementById('closePanelBtn');
-    const cartEmptyHint = document.getElementById('cartEmptyHint');
-
-    /* ---------- render produtos ---------- */
-    function renderProducts(){
-      productsGrid.innerHTML = '';
-      products.forEach(p=>{
-        const card = document.createElement('div'); card.className='card';
-        card.innerHTML = `
-          <img src="${p.img}" alt="${p.title}" class="thumb" />
-          <div class="prod-title">${p.title}</div>
-          <div class="price-row"><div class="price">${priceBR(p.price)}</div><button class="add" data-id="${p.id}">Adicionar</button></div>
-        `;
-        productsGrid.appendChild(card);
-      });
-    }
-    renderProducts();
-
-    /* ---------- cart helpers ---------- */
-    function saveCart(){
-      localStorage.setItem('loja_cart', JSON.stringify(cart));
-      updateCartCount();
-    }
-    function updateCartCount(){
-      const count = Object.values(cart).reduce((s,i)=>s+i.qty,0);
-      if(count>0){cartCount.style.display='flex';cartCount.textContent = count;} else {cartCount.style.display='none'}
-    }
-
-    /* ---------- add via delegation ---------- */
-    document.body.addEventListener('click', e=>{
-      const add = e.target.closest('[data-id]');
-      if(add){
-        const id = add.getAttribute('data-id');
-        const prod = products.find(x=>x.id==id);
-        if(!prod) return;
-        if(!cart[id]) cart[id] = {...prod, qty:0};
-        cart[id].qty += 1;
-        saveCart();
-        add.textContent = 'Adicionado ✓';
-        setTimeout(()=> add.textContent = 'Adicionar',700);
-      }
-    });
-
-    /* ---------- render carrinho (left column) ---------- */
-    function renderCart(){
-      cartList.innerHTML = '';
-      const keys = Object.keys(cart);
-      if(keys.length === 0){
-        cartList.innerHTML = '<div style="color:var(--muted)">Seu carrinho está vazio.</div>';
-        subtotalVal.textContent = 'R$0,00';
-        shippingVal.textContent = 'R$0,00';
-        totalVal.textContent = 'R$0,00';
-        cartEmptyHint.style.display='none';
-        return;
-      }
-      cartEmptyHint.style.display='block';
-
-      let subtotal = 0;
-      keys.forEach(k=>{
-        const it = cart[k];
-        subtotal += it.price * it.qty;
-
-        const row = document.createElement('div'); row.className='cart-row';
-        row.innerHTML = `
-          <img src="${it.img}" alt="${it.title}" />
-          <div class="cart-meta">
-            <div class="title">${it.title}</div>
-            <div class="meta">Em estoque: ${it.stock} • Entrega estimada: 3–7 dias úteis</div>
-            <div class="cart-actions">
-              <div style="display:flex;align-items:center;gap:8px">
-                <button class="qty-btn" data-act="dec" data-id="${k}">-</button>
-                <div style="min-width:28px;text-align:center">${it.qty}</div>
-                <button class="qty-btn" data-act="inc" data-id="${k}">+</button>
-              </div>
-              <button class="remove-btn" data-act="remove" data-id="${k}">Remover</button>
-            </div>
-          </div>
-          <div style="min-width:100px;text-align:right;font-weight:700">${priceBR(it.price * it.qty)}</div>
-        `;
-        cartList.appendChild(row);
-      });
-
-      // shipping policy: free over R$500
-      const shipping = subtotal >= 500 ? 0 : 29.90;
-      subtotalVal.textContent = priceBR(subtotal);
-      shippingVal.textContent = shipping === 0 ? 'R$0,00' : priceBR(shipping);
-
-      let total = subtotal + shipping;
-
-      // apply pix discount preview in UI when selection occurs at checkout (we'll handle discount later)
-      totalVal.textContent = priceBR(total);
-
-      saveCart(); // persist and update counter
-    }
-
-    /* ---------- open/close modal ---------- */
-    document.getElementById('openCart').addEventListener('click', ()=>{
-      renderCart();
-      modalBackdrop.style.display = 'flex';
-      // reset views
-      checkoutForm.style.display = 'none';
-      successView.style.display = 'none';
-      document.getElementById('summaryCol').scrollTop = 0;
-    });
-    closePanelBtn.addEventListener('click', ()=> modalBackdrop.style.display = 'none');
-
-    // clear all
-    clearAllBtn.addEventListener('click', ()=>{
-      if(confirm('Limpar todo o carrinho?')){
-        cart = {};
-        saveCart();
-        renderCart();
-      }
-    });
-
-    /* ---------- actions within left column (inc/dec/remove) ---------- */
-    cartList.addEventListener('click', e=>{
-      const btn = e.target.closest('[data-act]');
-      if(!btn) return;
-      const id = btn.getAttribute('data-id');
-      const act = btn.getAttribute('data-act');
-      if(act === 'inc'){ cart[id].qty += 1; }
-      if(act === 'dec'){ cart[id].qty -= 1; if(cart[id].qty <= 0) delete cart[id]; }
-      if(act === 'remove'){ if(confirm('Remover este item?')) { delete cart[id]; } }
-      renderCart();
-    });
-
-    /* ---------- checkout flow ---------- */
-    checkoutBtn.addEventListener('click', ()=>{
-      // show checkout form inside the summary column
-      const keys = Object.keys(cart);
-      if(keys.length === 0){ alert('Seu carrinho está vazio.'); return; }
-      checkoutForm.style.display = 'block';
-      // prefill totals
-      const subtotalText = subtotalVal.textContent;
-      // if pix selected in form we'll recalc after selection
-      window.scrollTo({ top: 0, behavior: 'smooth' }); // bring modal into view
-    });
-
-    // back to summary
-    document.getElementById('backToSummary').addEventListener('click', ()=>{
-      checkoutForm.style.display = 'none';
-      successView.style.display = 'none';
-    });
-
-    // confirm payment
-    document.getElementById('confirmBtn').addEventListener('click', ()=>{
-      const name = document.getElementById('inputName').value.trim();
-      const cpf = document.getElementById('inputCPF').value.trim();
-      const cep = document.getElementById('inputCEP').value.trim();
-      const addr = document.getElementById('inputAddress').value.trim();
-      const pay = document.getElementById('inputPayment').value;
-
-      if(!name || !cpf || !cep || !addr){
-        alert('Preencha nome, CPF, CEP e endereço.');
-        return;
-      }
-
-      // calculate totals and apply pix discount if selected
-      const subtotalNum = Object.values(cart).reduce((s,i)=>s + i.price * i.qty, 0);
-      const baseShipping = subtotalNum >= 500 ? 0 : 29.90;
-      let totalNum = subtotalNum + baseShipping;
-      if(pay === 'pix'){ totalNum = +(totalNum * 0.95).toFixed(2); }
-
-      // simulate order processing...
-      // clear cart, show success with totals
-      cart = {};
-      saveCart();
-      renderCart(); // refresh left column to show empty
-      checkoutForm.style.display = 'none';
-      successView.style.display = 'block';
-
-      // replace success text with totals
-      successView.innerHTML = `
-        <div style="padding:12px">
-          <h3 style="color:var(--success);margin:0">Pedido confirmado</h3>
-          <div style="color:var(--muted);margin-top:8px">Obrigado ${name}! Recebemos seu pedido.</div>
-          <div style="margin-top:12px;display:flex;justify-content:space-between">
-            <div class="small-muted">Total pago</div>
-            <div style="font-weight:800">${priceBR(totalNum)}</div>
-          </div>
-          <div style="margin-top:10px" class="small-muted">Você receberá um e-mail com detalhes e rastreamento quando o pedido for despachado.</div>
-          <div style="margin-top:12px">
-            <button id="doneBtn" class="cta-checkout" style="width:100%">Voltar à loja</button>
-          </div>
-        </div>
-      `;
-      // hook done button
-      document.getElementById('doneBtn').addEventListener('click', ()=> {
-        modalBackdrop.style.display = 'none';
-      });
-    });
-
-    /* ---------- coupon (simple demo) ---------- */
-    document.getElementById('applyCouponBtn').addEventListener('click', ()=>{
-      const code = prompt('Insira o código do cupom:');
-      if(!code) return;
-      // demo: CUPOM10 dá desconto fixo de 10%
-      if(code.trim().toUpperCase() === 'CUPOM10'){
-        // store coupon in session (not persisted)
-        sessionStorage.setItem('loja_coupon','CUPOM10');
-        alert('Cupom aplicado: 10% OFF no subtotal.');
-        recalcTotalsWithCoupon();
-      } else {
-        alert('Cupom inválido.');
-      }
-    });
-
-    function recalcTotalsWithCoupon(){
-      const subtotalNum = Object.values(cart).reduce((s,i)=>s + i.price * i.qty, 0);
-      const coupon = sessionStorage.getItem('loja_coupon');
-      let discount = 0;
-      if(coupon === 'CUPOM10'){ discount = +(subtotalNum * 0.10); }
-      const shipping = subtotalNum - discount >= 500 ? 0 : 29.90;
-      const total = subtotalNum - discount + shipping;
-      subtotalVal.textContent = priceBR(subtotalNum - discount);
-      shippingVal.textContent = shipping === 0 ? 'R$0,00' : priceBR(shipping);
-      totalVal.textContent = priceBR(total);
-    }
-
-    /* ---------- init ---------- */
-    updateCartCount();
-    renderCart();
-
-    /* ---------- search ---------- */
-    document.getElementById('searchInput').addEventListener('input', (e)=>{
-      const q = e.target.value.trim().toLowerCase();
-      const filtered = products.filter(p=>p.title.toLowerCase().includes(q));
-      productsGrid.innerHTML = '';
-      filtered.forEach(p=>{
-        const card = document.createElement('div'); card.className='card';
-        card.innerHTML = `
-          <img src="${p.img}" alt="${p.title}" class="thumb" />
-          <div class="prod-title">${p.title}</div>
-          <div class="price-row"><div class="price">${priceBR(p.price)}</div><button class="add" data-id="${p.id}">Adicionar</button></div>
-        `;
-        productsGrid.appendChild(card);
-      });
-    });
-
-    /* ---------- CTA shopNow ---------- */
-    document.getElementById('shopNow').addEventListener('click', ()=>{
-      window.scrollTo({top: document.getElementById('productsGrid').offsetTop - 20, behavior:'smooth'});
-    });
-
-    /* ---------- small UX niceties ---------- */
-    // close modal when clicking backdrop outside panel
-    modalBackdrop.addEventListener('click', (e)=>{
-      if(e.target === modalBackdrop) modalBackdrop.style.display = 'none';
-    });
-
-    // allow keyboard ESC to close
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape') modalBackdrop.style.display = 'none';
-    });
-
-  </script>
+  <!-- JS externo -->
+  <script src="script.js"></script>
 </body>
 </html>
