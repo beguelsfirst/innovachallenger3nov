@@ -72,7 +72,7 @@ document.body.addEventListener("click", e => {
   const open = e.target.closest(".product-open");
   if (open) {
     const id = open.getAttribute("data-id");
-    window.location.href = `Eduarda/produtos.html?id=${id}`;
+    window.location.href = `Eduarda/produto.html?id=${id}`;
   }
 });
 
