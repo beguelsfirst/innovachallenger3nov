@@ -5,33 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Visualização de Produto</title>
 
-    <!-- Importa arquivos reais -->
+    <!-- CSS global + estilos da página -->
     <link rel="stylesheet" href="../global.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <!-- ========================= HEADER (ATUALIZADO PARA O CSS NOVO) ========================= -->
-    <header class="product-header">
-        <div class="product-brand">
-            <div class="product-logo">A</div>
+    <!-- ========================================================= -->
+    <!-- HEADER IGUAL AO DA HOME --------------------------------- -->
+    <!-- ========================================================= -->
+    <header>
+    <div class="brand">
+        <a class="logo" href="../index.html">ADM</a>
+        <div>
+            <div style="font-weight:700">administrator shop</div>
+        </div>
+        <div style="font-size:12px;color:var(--muted)">Compre rápido — entregue em todo o país</div>
+        </div>
+    </div>
 
-            <div>
-                <p class="logo-text">Administrator Shop</p>
-                <p class="logo-sub">Tecnologia & Inovação</p>
-            </div>
+    <nav>
+        <div class="search" aria-label="busca">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:.8">
+            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2"></circle>
+        </svg>
+        <input id="searchInput" placeholder="Buscar produtos..." />
         </div>
 
-        <nav>
-            <ul>
-                <li><a href="../index.html">Início</a></li>
-                <li><a href="#">Produtos</a></li>
-                <li><a href="#">Carrinho</a></li>
-                <li><a href="#">Contato</a></li>
-            </ul>
-        </nav>
+        <div class="cart-btn">
+            <button id="openCart" class="ghost">Carrinho</button>
+            <div id="cartCount" class="cart-count" style="display:none">0</div>
+        </div>
+    </nav>
     </header>
+    <!-- ========================================================= -->
+    <!-- FIM DA HEADER ------------------------------------------- -->
+    <!-- ========================================================= -->
 
 
     <!-- ========================= CONTEÚDO ========================= -->
@@ -86,13 +97,14 @@
         </div>
     </main>
 
-    <!-- ========================= AVISO (POP-UP) ========================= -->
+    <!-- ========================= AVISO ========================= -->
     <div class="aviso" id="aviso">Produto adicionado ao carrinho!</div>
+
 
     <!-- Banco de produtos -->
     <script src="../produtosDB.js"></script>
 
-    <!-- Script da página do produto -->
+    <!-- Script da página -->
     <script src="script.js"></script>
 </body>
 </html>

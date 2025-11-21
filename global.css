@@ -139,11 +139,15 @@ input:focus, select:focus, textarea:focus {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
-/* ---------- Cabeçalho e Rodapé ---------- */
+/* ==========================================
+   HEADER — Padrão Global (unificado com home)
+   ========================================== */
+
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
   padding: 18px 24px;
   background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
   backdrop-filter: blur(6px);
@@ -152,6 +156,81 @@ header {
   z-index: 50;
 }
 
+/* BRAND (logo + textos) */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* NAV */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+nav a {
+  color: var(--text);
+  font-size: 15px;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+}
+nav a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* SEARCH */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--glass);
+  padding: 8px;
+  border-radius: var(--radius-sm);
+}
+
+.search input {
+  width: 170px;
+  background: transparent;
+  border: 0;
+}
+
+/* CARRINHO */
+.cart-btn {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.cart-btn button {
+  font-size: 14px;
+}
+
+/* Responsivo */
+@media (max-width: 780px) {
+  nav {
+    gap: 12px;
+  }
+
+  nav a {
+    font-size: 14px;
+  }
+
+  .search input {
+    width: 120px;
+  }
+
+  header {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    text-align: center;
+  }
+}
+
+/* ---------- Rodapé ---------- */
 footer {
   padding: 18px 24px;
   color: var(--muted);
@@ -170,21 +249,25 @@ footer {
   align-items: center;
   justify-content: center;
   font-weight: 700;
+
+  /* impede a cor azul de link */
+  color: white;         /* ou inherit, se preferir */
+  text-decoration: none;
 }
 
-.search {
-  display: flex;
-  align-items: center;
-  background: var(--glass);
-  padding: 8px;
-  border-radius: var(--radius-sm);
+/* garante que mesmo visited/active não fiquem azuis */
+.logo:visited,
+.logo:hover,
+.logo:active {
+  color: white;
+  text-decoration: none;
 }
+
+/* Search (reforço global) */
 .search input {
   background: transparent;
   border: 0;
-  outline: none;
   color: inherit;
-  width: 180px;
 }
 
 /* ---------- Modais e Sombras ---------- */
@@ -223,7 +306,7 @@ footer {
   background: var(--accent-alt);
 }
 
-/* ---------- Responsividade ---------- */
+/* ---------- Responsividade Geral ---------- */
 @media (min-width: 900px) {
   .container { padding: 0 40px; }
   .section { margin: 60px 0; }

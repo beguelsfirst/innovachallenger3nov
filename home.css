@@ -26,7 +26,8 @@
 
 .hero-accent {
   background: linear-gradient(90deg, var(--accent), var(--accent-alt));
-  -webkit-background-clip: text;
+  background-clip: text;        /* ✔ padrão */
+  -webkit-background-clip: text; /* ✔ compatibilidade */
   -webkit-text-fill-color: transparent;
 }
 
@@ -134,8 +135,6 @@
   font-size: 12px;
 }
 
-/* Modal carrinho segue 100% o que está no global.css — não duplicamos! */
-
 /* ---------- ITENS DO CARRINHO ---------- */
 
 .cart-item {
@@ -161,9 +160,9 @@
 
 /* ==========================================
    HEADER — Correção de alinhamento e layout
+   (versão final aplicada e estável)
    ========================================== */
 
-/* Container principal do header */
 header {
   display: flex;
   align-items: center;
@@ -171,33 +170,33 @@ header {
   gap: 24px;
 }
 
-/* ----------- BRAND (logo + textos) ----------- */
+/* BRAND */
 .brand {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-/* ----------- NAV ----------- */
+/* NAV */
 nav {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-/* Links do header */
 nav a {
   color: var(--text);
   font-size: 15px;
   border-bottom: 1px solid transparent;
   padding-bottom: 2px;
 }
+
 nav a:hover {
   color: var(--accent);
   border-bottom-color: var(--accent);
 }
 
-/* ----------- SEARCH ----------- */
+/* SEARCH */
 .search {
   display: flex;
   align-items: center;
@@ -209,7 +208,7 @@ nav a:hover {
   width: 170px;
 }
 
-/* ----------- Carrinho ----------- */
+/* CARRINHO */
 .cart-btn {
   display: flex;
   align-items: center;
@@ -221,6 +220,7 @@ nav a:hover {
 }
 
 /* ---------- Responsivo ---------- */
+
 @media (max-width: 780px) {
   nav {
     gap: 12px;
