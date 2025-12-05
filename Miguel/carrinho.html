@@ -5,22 +5,35 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Carrinho — Loja Online</title>
 
-  <!-- CSS externo -->
+  <!-- CSS da página -->
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <div class="container">
     <h1>Carrinho</h1>
+
     <div class="panel">
+      
+      <!-- =============================== -->
+      <!-- COLUNA ESQUERDA - Itens         -->
+      <!-- =============================== -->
       <div class="left" id="leftCol">
+
         <div id="cartItems"></div>
+
         <div style="display:flex;gap:8px;margin-top:12px">
           <button class="secondary" id="clearBtn">Limpar carrinho</button>
           <button class="secondary" id="backBtn">Continuar comprando</button>
         </div>
+
       </div>
 
+      <!-- =============================== -->
+      <!-- COLUNA DIREITA - Resumo         -->
+      <!-- =============================== -->
       <div class="right">
+
         <div style="display:flex;justify-content:space-between;align-items:center">
           <div>
             <div class="muted">Resumo</div>
@@ -29,6 +42,7 @@
           <div style="color:var(--success);font-weight:700">Frete GRÁTIS</div>
         </div>
 
+        <!-- RESUMO -->
         <div style="margin-top:12px">
           <div style="display:flex;justify-content:space-between">
             <div class="muted">Subtotal</div>
@@ -48,7 +62,8 @@
           </div>
         </div>
 
-        <div style="margin-top:12px">
+        <!-- FORMULÁRIO -->
+        <div style="margin-top:12px;">
           <input id="name" placeholder="Nome completo">
           <input id="cpf" placeholder="CPF">
           <input id="cep" placeholder="CEP">
@@ -60,13 +75,25 @@
             <option value="boleto">Boleto</option>
           </select>
 
-          <button id="confirm" class="cta-large" style="margin-top:12px">Confirmar pedido</button>
+          <button id="confirm" class="cta-large" style="margin-top:12px;">
+            Confirmar pedido
+          </button>
         </div>
+
       </div>
+
     </div>
   </div>
 
-  <!-- JS externo -->
-  <script src="script.js"></script>
+  <!-- =============================== -->
+  <!-- SCRIPTS                         -->
+  <!-- =============================== -->
+
+  <!-- Carrinho global (localStorage + helpers) -->
+  <script src="../cart.js"></script>
+
+  <!-- Lógica desta página -->
+  <script src="cart-page.js"></script>
+
 </body>
 </html>

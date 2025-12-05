@@ -69,7 +69,7 @@
   <!-- ==========================
        MODAL CARRINHO
   =========================== -->
-  <div id="cartModal" class="modal" style="display:none">
+  <div id="cartModal" class="modal" style="display:none;">
     <h3>Seu Carrinho</h3>
 
     <div id="cartItems"></div>
@@ -95,10 +95,13 @@
 
   <!-- ==========================
        SCRIPTS
-       - Carregar banco de dados primeiro
-       - Depois lógica da página
+       ORDEM CORRETA:
+       1 — produtosDB (base de dados)
+       2 — cart.js (cart global)
+       3 — script.js (home + renderização)
   =========================== -->
   <script src="produtosDB.js"></script>
+  <script src="cart.js"></script>
   <script src="script.js"></script>
 
 </body>

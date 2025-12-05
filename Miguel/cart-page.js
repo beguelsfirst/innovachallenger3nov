@@ -1,6 +1,4 @@
-// mesma estrutura do index; usa localStorage 'loja_cart'
-const cart = JSON.parse(localStorage.getItem('loja_cart') || '{}');
-
+// cart vem do cart.js (global)
 function priceBR(v){
   return v.toLocaleString('pt-BR',{ style:'currency', currency:'BRL' });
 }
@@ -32,10 +30,10 @@ function render(){
     row.className='cart-row';
 
     row.innerHTML = `
-      <img src="${it.img}" alt="${it.title}">
+      <img src="..${it.img}" alt="${it.title}">
       <div style="flex:1;min-width:0">
         <div style="font-weight:700">${it.title}</div>
-        <div class="muted">Em estoque: ${it.stock}</div>
+        <div class="muted">Quantidade: ${it.qty}</div>
 
         <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
           <button class="qty-btn" data-act="dec" data-id="${k}">-</button>
@@ -54,7 +52,7 @@ function render(){
   const total = subtotal + shipping;
 
   subtotalEl.textContent = priceBR(subtotal);
-  shipEl.textContent = shipping === 0 ? 'R$0,00' : priceBR(shipping);
+  shipEl.textContent = priceBR(shipping);
   totalEl.textContent = priceBR(total);
 }
 
@@ -77,44 +75,10 @@ left.addEventListener('click', e=>{
     if(confirm('Remover item?')) delete cart[id];
   }
 
-  localStorage.setItem('loja_cart', JSON.stringify(cart));
-  render();
-});
-
-document.getElementById('clearBtn').addEventListener('click', ()=>{
-  if(confirm('Limpar todo o carrinho?')){
-    for(const k of Object.keys(cart)) delete cart[k];
-    localStorage.setItem('loja_cart', JSON.stringify(cart));
-    render();
-  }
-});
-
-document.getElementById('confirm').addEventListener('click', ()=>{
-  const name = document.getElementById('name').value.trim();
-  const cpf = document.getElementById('cpf').value.trim();
-  const cep = document.getElementById('cep').value.trim();
-  const addr = document.getElementById('address').value.trim();
-  const pay = document.getElementById('payment').value;
-
-  if(!name || !cpf || !cep || !addr){
-    alert('Preencha todos os campos.');
-    return;
-  }
-
-  const subtotal = Object.values(cart).reduce((s,i)=> s + i.price*i.qty, 0);
-  const shipping = subtotal >= 500 ? 0 : 29.90;
-
-  let total = subtotal + shipping;
-  
-  if(pay === 'pix') total = +(total * 0.95).toFixed(2);
-
-  alert('Pedido confirmado. Total pago: ' + priceBR(total));
-
-  for(const k of Object.keys(cart)) delete cart[k];
-  localStorage.setItem('loja_cart', JSON.stringify(cart));
+  saveCart();
   render();
 });
 
 document.getElementById('backBtn').addEventListener('click', ()=>{
-  window.location = 'index.html';
+  window.location = '../index.html';
 });
